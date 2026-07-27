@@ -585,13 +585,11 @@ function renderSummary() {
     top3.length > 0
       ? `${top3.join(' + ')}。还要继续吗？`
       : '这笔钱说多不多说少不少，但花在自己身上总能更聪明。',
-    diptyque > 0
-      ? `${diptyque} 个 Diptyque 蜡烛，每天点一个能点 ${(diptyque/365).toFixed(1)} 年。`
-      : (lulu > 0
-        ? `${lulu} 件 lululemon Define，每周一件能穿 ${(lulu/52).toFixed(1)} 年。`
-        : (stanley > 0
-          ? `${stanley} 个 Stanley 杯，送闺蜜每人一个还要送 ${Math.max(0,stanley-5)} 个。`
-          : '冷静想想，这笔钱可以做很多事。')),
+    lulu > 0
+      ? `${lulu} 件 lululemon Define，每周穿一件能穿 ${(lulu/52).toFixed(1)} 年。`
+      : (stanley > 0
+        ? `${stanley} 个 Stanley 杯，送闺蜜每人一个还剩 ${Math.max(0,stanley-5)} 个。`
+        : '冷静想想，这笔钱可以做很多事。'),
     top3.length > 0
       ? `＝ ${top3.join(' + ')}。你有这么多钱花给自己诶。`
       : '花在追星上是快乐，花在自己身上也是值得。',
