@@ -465,7 +465,7 @@ const items = [
   { e:'👜', n:'Hermès Birkin 30', p:200000, c:'shopping', h:true },
 
   // 旅行体验
-  { e:'🇰🇷', n:'首尔 3 天追星之旅', p:5000, c:'travel' },
+  { e:'🇹🇷', n:'土耳其 8 天热气球 + 棉花堡', p:12000, c:'travel' },
   { e:'🇯🇵', n:'京都 5 天庭院 + 怀石之旅', p:13000, c:'travel' },
   { e:'🇯🇵', n:'濑户内海艺术祭跳岛', p:15000, c:'travel' },
   { e:'🇮🇩', n:'巴厘岛 5 天瑜伽度假', p:9000, c:'travel' },
@@ -566,17 +566,17 @@ function calc() {
 
 function renderSummary() {
   const lulu = Math.floor(currentAmount / 1080);
-  const stanley = Math.floor(currentAmount / 300);
-  const seoul = Math.floor(currentAmount / 5000);
-  const diptyque = Math.floor(currentAmount / 600);
-  const westwood = Math.floor(currentAmount / 2000);
+   const stanley = Math.floor(currentAmount / 300);
+   const tokyo = Math.floor(currentAmount / 13000);
+   const diptyque = Math.floor(currentAmount / 600);
+   const westwood = Math.floor(currentAmount / 2000);
 
-  const parts = [];
-  if (lulu > 0) parts.push(`${lulu} 件 lululemon Define`);
-  if (seoul > 0) parts.push(`${seoul} 趟首尔追星`);
-  if (stanley > 0) parts.push(`${stanley} 个 Stanley 杯`);
-  if (diptyque > 0) parts.push(`${diptyque} 个 Diptyque 蜡烛`);
-  if (westwood > 0) parts.push(`${westwood} 条西太后 choker`);
+   const parts = [];
+   if (lulu > 0) parts.push(`${lulu} 件 lululemon Define`);
+   if (tokyo > 0) parts.push(`${tokyo} 趟京都`);
+   if (stanley > 0) parts.push(`${stanley} 个 Stanley 杯`);
+   if (diptyque > 0) parts.push(`${diptyque} 个 Diptyque 蜡烛`);
+   if (westwood > 0) parts.push(`${westwood} 条西太后 choker`);
 
   // Pick top 3 most interesting
   const top3 = parts.slice(0, 3);
