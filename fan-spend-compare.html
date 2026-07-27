@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="© 2026 追星女防沉迷 All Rights Reserved">
+<meta name="copyright" content="© 2026 追星女防沉迷. 保留所有权利。未经授权禁止复制、转载或商业使用。">
+<meta name="robots" content="noarchive">
+<title>追星女防沉迷网站</title>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #fdf6f0;
+    --text: #4a3f52;
+    --text-secondary: #8e8598;
+    --text-tertiary: #b8afc0;
+    --border: #ece3f0;
+    --border-strong: #dccfed;
+    --accent: #c792ea;
+    --accent2: #82d4d4;
+    --accent3: #f7b8c5;
+    --surface: #ffffff;
+    --surface-hover: #f9f4fc;
+    --gradient-1: linear-gradient(135deg, #fce4ec, #f3e5f5, #e8eaf6);
+    --gradient-2: linear-gradient(135deg, #e0f7fa, #f3e5f5, #fce4ec);
+    --gradient-btn: linear-gradient(135deg, #c792ea, #f7b8c5);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(180deg, #fdf6f0 0%, #f7eff9 30%, #eef6f8 70%, #fdf6f0 100%);
+    background-attachment: fixed;
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  /* Header */
+  header {
+    margin-bottom: 48px;
+  }
+  header .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 100px;
+    padding: 3px 12px;
+    margin-bottom: 16px;
+  }
+  header h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  header .desc {
+    font-size: 1em;
+    color: var(--text-secondary);
+    font-weight: 400;
+    max-width: 480px;
+  }
+
+  /* Input Section */
+  .input-area {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 20px rgba(199,146,234,0.08);
+  }
+  .input-area .label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+  }
+  .input-row {
+    display: flex;
+    gap: 10px;
+  }
+  .input-row input {
+    flex: 1;
+    font-size: 1.8em;
+    font-weight: 600;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    letter-spacing: -0.01em;
+  }
+  .input-row input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(199,146,234,0.12);
+  }
+  .input-row input::placeholder {
+    color: var(--text-tertiary);
+    font-weight: 400;
+  }
+  .input-row button {
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    background: var(--gradient-btn);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .input-row button:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+
+  /* Quick amounts */
+  .quick-amounts {
+    display: flex;
+    gap: 6px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .quick-amounts button {
+    padding: 6px 16px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .quick-amounts button:hover {
+    background: var(--surface-hover);
+    color: var(--text);
+  }
+  .quick-amounts button.active {
+    background: var(--gradient-btn);
+    color: #fff;
+    border-color: transparent;
+  }
+
+  /* Summary */
+  .summary {
+    text-align: center;
+    padding: 40px 0;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+  .summary .number {
+    font-size: 4em;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+  }
+  .summary .slogan {
+    margin-top: 8px;
+    font-size: 15px;
+    color: var(--text-secondary);
+  }
+
+  /* Category filter */
+  .filter-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 28px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .filter-bar button {
+    padding: 7px 18px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    background: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .filter-bar button:hover {
+    background: var(--surface-hover);
+    color: var(--text);
+  }
+  .filter-bar button.active {
+    background: var(--surface-hover);
+    color: #a070c4;
+    font-weight: 500;
+  }
+
+  /* Result list */
+  .result-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .result-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .result-item:last-child {
+    border-bottom: none;
+  }
+  .result-item .emoji {
+    font-size: 1.4em;
+    width: 40px;
+    flex-shrink: 0;
+  }
+  .result-item .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .result-item .name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .result-item .meta {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-top: 2px;
+  }
+  .result-item .qty {
+    text-align: right;
+    flex-shrink: 0;
+    margin-left: 16px;
+  }
+  .result-item .qty .num {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .result-item .qty .unit {
+    font-size: 12px;
+    color: var(--text-tertiary);
+  }
+
+  /* Highlight card */
+  .highlight-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .highlight-card .hl-emoji {
+    font-size: 2em;
+  }
+  .highlight-card .hl-text {
+    flex: 1;
+  }
+  .highlight-card .hl-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  .highlight-card .hl-value {
+    font-size: 1.6em;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* Empty */
+  .empty {
+    text-align: center;
+    padding: 100px 0;
+  }
+  .empty .icon {
+    font-size: 48px;
+    opacity: 0.3;
+    margin-bottom: 16px;
+  }
+  .empty .msg {
+    font-size: 15px;
+    color: var(--text-tertiary);
+  }
+
+  /* Custom section */
+  .custom-section {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .custom-section h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+  .custom-form {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .custom-form input {
+    flex: 1;
+    min-width: 100px;
+    padding: 10px 14px;
+    font-size: 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--text);
+    outline: none;
+  }
+  .custom-form input:focus {
+    border-color: var(--accent);
+  }
+  .custom-form input::placeholder {
+    color: var(--text-tertiary);
+  }
+  .custom-form button {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    background: var(--gradient-btn);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .custom-form button:hover {
+    opacity: 0.9;
+  }
+  .custom-list {
+    margin-top: 16px;
+  }
+  .custom-list .custom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .custom-list .custom-row .del {
+    background: none;
+    border: none;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 4px 8px;
+  }
+  .custom-list .custom-row .del:hover {
+    color: #dc2626;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding-top: 60px;
+    font-size: 12px;
+    color: var(--text-tertiary);
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 40px 16px 60px; }
+    header h1 { font-size: 1.6em; }
+    .input-row { flex-direction: column; }
+    .input-row input { font-size: 1.5em; }
+    .input-row button { width: 100%; }
+    .summary .number { font-size: 2.8em; }
+    .quick-amounts { justify-content: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="tag">清醒一下</div>
+    <h1>追星女防沉迷网站</h1>
+    <p class="desc">看一下这笔钱，换成你真正想花的地方，能有多爽。</p>
+  </header>
+
+  <div class="input-area">
+    <div class="label">准备花多少？</div>
+    <div class="input-row">
+      <input type="number" id="amount" placeholder="输入金额" min="0" step="100">
+      <button onclick="calc()">看看值不值</button>
+    </div>
+    <div class="quick-amounts">
+      <button onclick="setPreset(5000, this)">¥5,000</button>
+      <button onclick="setPreset(10000, this)">¥10,000</button>
+      <button onclick="setPreset(20000, this)">¥20,000</button>
+      <button onclick="setPreset(50000, this)">¥50,000</button>
+      <button onclick="setPreset(100000, this)">¥100,000</button>
+      <button onclick="setPreset(200000, this)">¥200,000</button>
+    </div>
+  </div>
+
+  <div id="results" style="display:none;">
+    <div class="summary">
+      <div class="number" id="summaryNumber"></div>
+      <div class="slogan" id="summarySlogan"></div>
+    </div>
+
+    <div class="filter-bar" id="filterBar"></div>
+    <div class="result-list" id="resultList"></div>
+  </div>
+
+  <div class="empty" id="empty">
+    <div class="icon">💸</div>
+    <div class="msg">输入金额，冷静一下。</div>
+  </div>
+
+  <div class="custom-section">
+    <h3>添加你想比较的东西</h3>
+    <div class="custom-form">
+      <input type="text" id="cName" placeholder="名称">
+      <input type="text" id="cEmoji" placeholder="emoji" maxlength="2" style="max-width:80px;">
+      <input type="number" id="cPrice" placeholder="价格" min="0" style="max-width:120px;">
+      <button onclick="addCustom()">添加</button>
+    </div>
+    <div class="custom-list" id="customList"></div>
+  </div>
+
+  <footer>
+    <p style="font-weight:500;color:var(--text-secondary);margin-bottom:4px;">你担知道你对自己好一点也会高兴的。</p>
+    <p style="font-size:10px;color:var(--text-tertiary);opacity:0.4;margin-top:6px;">© 2026 追星女防沉迷 · 保留所有权利 · 禁止未授权转载或商业使用</p>
+  </footer>
+</div>
+
+<script>
+const items = [
+  // 购物消费
+  { e:'👜', n:'Miu Miu Arcadie 手袋', p:24000, c:'shopping' },
+  { e:'👜', n:'The Row Margaux 15', p:48000, c:'shopping' },
+  { e:'👜', n:'Prada 再生尼龙 Re-Nylon', p:16000, c:'shopping' },
+  { e:'👛', n:'Songmont 崧 豆腐包', p:2800, c:'shopping' },
+  { e:'🕶️', n:'Gentle Monster 墨镜', p:2200, c:'shopping' },
+  { e:'👗', n:'Totême 经典衬衫 + 阔腿裤一套', p:6000, c:'shopping' },
+  { e:'👟', n:'Salomon XT-6 徒步鞋', p:1200, c:'shopping' },
+  { e:'🛍️', n:'Lemaire 牛角包', p:11000, c:'shopping' },
+  { e:'💍', n:'Tiffany T 系列手镯', p:12000, c:'shopping' },
+  { e:'🧥', n:'Max Mara 经典款大衣', p:18000, c:'shopping' },
+  { e:'👜', n:'Hermès Birkin 30', p:200000, c:'shopping', h:true },
+
+  // 旅行体验
+  { e:'🇰🇷', n:'首尔 3 天追星之旅', p:5000, c:'travel' },
+  { e:'🇯🇵', n:'京都 5 天庭院 + 怀石之旅', p:13000, c:'travel' },
+  { e:'🇮🇩', n:'巴厘岛 5 天瑜伽度假', p:9000, c:'travel' },
+  { e:'🇹🇭', n:'清迈 5 天数字游民体验', p:5000, c:'travel' },
+  { e:'🇲🇻', n:'马尔代夫 5 天水屋蜜月', p:35000, c:'travel' },
+  { e:'🇮🇸', n:'冰岛 8 天极光 + 蓝冰洞', p:40000, c:'travel' },
+  { e:'🇨🇭', n:'瑞士 7 天火车环游', p:30000, c:'travel' },
+  { e:'🇯🇵', n:'濑户内海艺术祭跳岛', p:15000, c:'travel' },
+  { e:'🇳🇿', n:'新西兰 10 天自驾南北岛', p:25000, c:'travel' },
+  { e:'🚄', n:'周末特种兵 48h 逃离城市', p:2000, c:'travel' },
+  { e:'🏔️', n:'川西 3 天徒步 + 星空露营', p:3500, c:'travel' },
+  { e:'🏖️', n:'三亚 5 天躺平度假', p:6000, c:'travel' },
+  { e:'🗺️', n:'云南旅居一个月', p:10000, c:'travel', h:true },
+
+  // 变美投资
+  { e:'✨', n:'光子嫩肤 全模式（单次）', p:1200, c:'beauty' },
+  { e:'💉', n:'热玛吉 面部（单次）', p:18000, c:'beauty' },
+  { e:'🧴', n:'La Mer 经典面霜 60ml', p:4200, c:'beauty' },
+  { e:'💄', n:'Gucci 倾色绒雾口红', p:380, c:'beauty' },
+  { e:'🫧', n:'Aesop 赋活芳香护手霜', p:200, c:'beauty' },
+  { e:'🌸', n:'Byredo 无人区玫瑰 50ml', p:1500, c:'beauty' },
+  { e:'🪞', n:'Dior 锁妆气垫 + 粉底液', p:1200, c:'beauty' },
+  { e:'🧖‍♀️', n:'高端 SPA 全身精油护理', p:900, c:'beauty' },
+  { e:'💇‍♀️', n:'明星发型师 剪+染', p:2500, c:'beauty' },
+  { e:'💅', n:'日式美甲（季度）', p:600, c:'beauty' },
+  { e:'👁️', n:'接睫毛全套', p:400, c:'beauty' },
+  { e:'🦷', n:'牙齿美白一次', p:1800, c:'beauty' },
+
+  // 运动健康
+  { e:'🧘‍♀️', n:'普拉提私教课 10 节', p:4800, c:'health' },
+  { e:'🏃‍♀️', n:'ClassPass 月卡（无限次）', p:600, c:'health' },
+  { e:'🏋️', n:'高级健身房年卡', p:6000, c:'health' },
+  { e:'🚴', n:'骑行车队周末活动 10 次', p:3000, c:'health' },
+  { e:'⛷️', n:'长白山滑雪周末 trip', p:4000, c:'health' },
+  { e:'🏄', n:'万宁冲浪营 5 天', p:3500, c:'health' },
+  { e:'🧠', n:'心理咨询 10 次套餐', p:6000, c:'health' },
+  { e:'🌿', n:'正念冥想 App 年度会员', p:400, c:'health' },
+  { e:'🍳', n:'营养师定制季度饮食方案', p:3000, c:'health' },
+
+  // 吃喝打卡
+  { e:'🍣', n:'顶级 Omakase 一人', p:2000, c:'food' },
+  { e:'☕', n:'Blue Bottle 手冲 + 甜品', p:80, c:'food' },
+  { e:'🍳', n:'网红 Brunch 双人打卡', p:250, c:'food' },
+  { e:'🧋', n:'霸王茶姬 / 阿嬷手作', p:25, c:'food' },
+  { e:'🍲', n:'珮姐老火锅 4 人局', p:400, c:'food' },
+  { e:'🥂', n:'小酒馆自然酒之夜双人', p:600, c:'food' },
+  { e:'🍜', n:'一碗好螺蛳粉 + 炸蛋', p:30, c:'food' },
+  { e:'🥐', n:'B&C 黄油与面包 一次扫货', p:150, c:'food' },
+  { e:'🍰', n:'黑珍珠餐厅 双人 tasting', p:2500, c:'food' },
+  { e:'🫕', n:'山姆会员店一次扫货', p:1000, c:'food' },
+  { e:'📦', n:'每日黑巧/冻干咖啡 月供', p:200, c:'food' },
+
+  // 情绪消费
+  { e:'🎤', n:'Taylor Swift 演唱会山顶票', p:2500, c:'mood' },
+  { e:'🎭', n:'沉浸式戏剧/音乐剧 VIP', p:800, c:'mood' },
+  { e:'🫧', n:'泡泡玛特盲盒 端盒', p:600, c:'mood' },
+  { e:'🎬', n:'IMAX 电影票 一年12部', p:1000, c:'mood' },
+  { e:'🐱', n:'领养猫咪 + 全套装备', p:5000, c:'mood' },
+  { e:'🎮', n:'Switch OLED + 塞尔达新作', p:2800, c:'mood' },
+  { e:'💐', n:'每周一束鲜花 整年', p:4500, c:'mood' },
+  { e:'🧶', n:'景德镇手工拉坯体验课', p:400, c:'mood' },
+  { e:'🎨', n:'城市画派零基础油画课', p:300, c:'mood' },
+  { e:'📚', n:'Kindle 年度书单全部拿下', p:1500, c:'mood' },
+  { e:'🎧', n:'索尼 WH-1000XM6 降噪', p:2800, c:'mood' },
+
+  // 生活升级
+  { e:'🤖', n:'扫地机器人（旗舰款）', p:5000, c:'life' },
+  { e:'🖥️', n:'MacBook Air 15" M4', p:10999, c:'life' },
+  { e:'📱', n:'iPhone 16 Pro', p:8999, c:'life' },
+  { e:'💡', n:'戴森空气净化暖风扇', p:5000, c:'life' },
+  { e:'🍳', n:'铸铁锅 + 刀具一套升级', p:3000, c:'life' },
+  { e:'🛏️', n:'亚朵星球深睡枕 Pro 一对', p:800, c:'life' },
+  { e:'🕯️', n:'Diptyque 香薰蜡烛 3 枚', p:1500, c:'life' },
+  { e:'📺', n:'Apple TV 4K + 一年订阅', p:2500, c:'life' },
+  { e:'🚕', n:'滴滴专车上下班一个月', p:2000, c:'life' },
+  { e:'🧹', n:'每周保洁上门 一整年', p:10000, c:'life' },
+  { e:'🎁', n:'给爸妈每月寄生活费一年', p:24000, c:'life', h:true },
+];
+
+let customItems = [];
+let currentAmount = 0;
+let currentFilter = 'all';
+
+const catLabels = { all:'全部', shopping:'🛍️ 购物消费', travel:'✈️ 旅行体验', beauty:'💆‍♀️ 变美投资', health:'🧘‍♀️ 运动健康', food:'🍽️ 吃喝打卡', mood:'🎭 情绪消费', life:'🏠 生活升级', custom:'💜 自定义' };
+
+document.getElementById('amount').addEventListener('keydown', e => { if(e.key==='Enter') calc(); });
+
+function setPreset(v, btn) {
+  document.getElementById('amount').value = v;
+  document.querySelectorAll('.quick-amounts button').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  calc();
+}
+
+function calc() {
+  const v = parseFloat(document.getElementById('amount').value);
+  if (isNaN(v) || v <= 0) return;
+  currentAmount = v;
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('empty').style.display = 'none';
+  renderSummary();
+  renderFilter();
+  renderList(currentFilter);
+}
+
+function renderSummary() {
+  const milkTea = Math.floor(currentAmount / 25);
+  const blindbox = Math.floor(currentAmount / 600);
+  const seoul = Math.floor(currentAmount / 5000);
+
+  const parts = [];
+  if (seoul > 0) parts.push(`${seoul} 趟首尔往返`);
+  if (milkTea > 0) parts.push(`${milkTea.toLocaleString()} 杯奶茶`);
+  if (blindbox > 0) parts.push(`${blindbox} 盒泡泡玛特盲盒`);
+
+  const slogans = [
+    parts.length > 0
+      ? `${parts.join(' + ')}。还要继续吗？`
+      : '这笔钱说多不多说少不少，但花在自己身上总能更聪明。',
+    blindbox > 0
+      ? `${blindbox} 盒泡泡玛特盲盒，每天拆一盒够拆 ${(blindbox/365).toFixed(1)} 年。`
+      : (milkTea > 0
+        ? `${milkTea.toLocaleString()} 杯奶茶，每天一杯够喝 ${Math.floor(milkTea/365)} 年。`
+        : '冷静想想，这笔钱可以做很多事。'),
+    parts.length > 0
+      ? `等于 ${parts.join(' + ')}。冷静了吗？`
+      : '花在追星上是快乐，花在自己身上是值得。两者不冲突。',
+  ];
+  document.getElementById('summaryNumber').textContent = '¥' + currentAmount.toLocaleString();
+  document.getElementById('summarySlogan').textContent = slogans[Math.floor(Math.random()*slogans.length)];
+}
+
+function renderFilter() {
+  const cats = ['all','shopping','travel','beauty','health','food','mood','life'];
+  if(customItems.length) cats.push('custom');
+  document.getElementById('filterBar').innerHTML = cats.map(c =>
+    `<button class="${c===currentFilter?'active':''}" onclick="switchFilter('${c}',this)">${catLabels[c]}</button>`
+  ).join('');
+}
+
+function switchFilter(cat, btn) {
+  currentFilter = cat;
+  document.querySelectorAll('#filterBar button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderList(cat);
+}
+
+function renderList(filter) {
+  let all = [...items];
+  customItems.forEach(ci => all.push({ e:ci.e||'💜', n:ci.n, p:ci.p, c:'custom' }));
+
+  let list = filter==='all' ? all : all.filter(i => i.c===filter);
+  list = list.map(i => ({...i, q:Math.floor(currentAmount/i.p), r:currentAmount%i.p}))
+    .filter(i => i.q > 0)
+    .sort((a,b) => b.q - a.q);
+
+  const container = document.getElementById('resultList');
+  if(!list.length) {
+    container.innerHTML = '<div style="padding:40px 0;text-align:center;color:var(--text-tertiary);">这笔钱还不够买这个分类里的任何东西。</div>';
+    return;
+  }
+
+  container.innerHTML = list.map(i => {
+    const unit = i.c==='travel'?'趟':i.c==='food'?'顿':i.c==='mood'?'个':'个';
+    const verb = i.c==='travel'?'可以去 ':'可以买 ';
+    return `
+    <div class="result-item">
+      <span class="emoji">${i.e}</span>
+      <div class="info">
+        <div class="name">${i.n}</div>
+        <div class="meta">¥${i.p.toLocaleString()} / ${unit}</div>
+      </div>
+      <div class="qty">
+        <div class="num">${i.q.toLocaleString()}</div>
+        <div class="unit">${unit}${i.r>0?` · 余 ¥${i.r.toLocaleString()}`:''}</div>
+      </div>
+    </div>
+  `;}).join('');
+}
+
+function addCustom() {
+  const n = document.getElementById('cName').value.trim();
+  const e = document.getElementById('cEmoji').value.trim() || '💜';
+  const p = parseFloat(document.getElementById('cPrice').value);
+  if(!n || isNaN(p) || p<=0) return;
+  customItems.push({ n, e, p });
+  document.getElementById('cName').value = '';
+  document.getElementById('cEmoji').value = '';
+  document.getElementById('cPrice').value = '';
+  renderCList();
+  if(currentAmount>0) { renderFilter(); renderList(currentFilter); }
+}
+
+function removeCustom(i) {
+  customItems.splice(i,1);
+  renderCList();
+  if(currentAmount>0) { renderFilter(); renderList(currentFilter); }
+}
+
+function renderCList() {
+  const el = document.getElementById('customList');
+  if(!customItems.length) { el.innerHTML = '<div style="font-size:13px;color:var(--text-tertiary);padding:8px 0;">还没有添加。</div>'; return; }
+  el.innerHTML = customItems.map((ci,i) => `
+    <div class="custom-row">
+      <span>${ci.e} ${ci.n} · ¥${ci.p.toLocaleString()}</span>
+      <button class="del" onclick="removeCustom(${i})">×</button>
+    </div>
+  `).join('');
+}
+
+renderCList();
+
+// Console copyright
+console.log('%c🛑 追星女防沉迷 %c© 2026',
+  'font-size:16px;font-weight:700;color:#c792ea;',
+  'font-size:12px;color:#8e8598;');
+console.log('%c保留所有权利。禁止未授权复制、转载或商业使用。',
+  'font-size:11px;color:#b8afc0;');
+</script>
+</body>
+</html>
