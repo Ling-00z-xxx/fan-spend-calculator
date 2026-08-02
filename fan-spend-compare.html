@@ -395,6 +395,7 @@
     <div class="tag">清醒一下</div>
     <h1>追星女防沉迷网站</h1>
     <p class="desc">看一下这笔钱，换成你真正想花的地方，能有多爽。</p>
+    <p style="font-weight:500;color:var(--text-secondary);margin-top:12px;font-size:14px;">你担知道你对自己好一点也会高兴的。</p>
   </header>
 
   <div class="input-area">
@@ -440,8 +441,7 @@
   </div>
 
   <footer>
-    <p style="font-weight:500;color:var(--text-secondary);margin-bottom:4px;">你担知道你对自己好一点也会高兴的。</p>
-    <p style="font-size:10px;color:var(--text-tertiary);opacity:0.4;margin-top:6px;">© 2026 追星女防沉迷 · 保留所有权利 · 禁止未授权转载或商业使用</p>
+    <p style="font-size:9px;color:var(--text-tertiary);opacity:0.25;text-align:right;margin-top:60px;">© 2026 追星女防沉迷 · 保留所有权利 · 禁止未授权转载或商业使用</p>
   </footer>
 </div>
 
@@ -542,7 +542,7 @@ let customItems = [];
 let currentAmount = 0;
 let currentFilter = 'all';
 
-const catLabels = { all:'全部', shopping:'🛍️ 购物消费', travel:'✈️ 旅行体验', beauty:'💆‍♀️ 变美投资', health:'🧘‍♀️ 运动健康', food:'🍽️ 吃喝打卡', mood:'🎭 情绪消费', life:'🏠 生活升级', custom:'💜 自定义' };
+const catLabels = { all:'全部', travel:'✈️ 人生体验', shopping:'🛍️ 好物清单', beauty:'💆‍♀️ 变美投资', health:'🧘‍♀️ 运动健康', food:'🍽️ 吃喝打卡', mood:'🎭 情绪消费', life:'🏠 生活升级', custom:'💜 自定义' };
 
 document.getElementById('amount').addEventListener('keydown', e => { if(e.key==='Enter') calc(); });
 
@@ -599,7 +599,7 @@ function renderSummary() {
 }
 
 function renderFilter() {
-  const cats = ['all','shopping','travel','beauty','health','food','mood','life'];
+  const cats = ['all','travel','shopping','beauty','health','food','mood','life'];
   if(customItems.length) cats.push('custom');
   document.getElementById('filterBar').innerHTML = cats.map(c =>
     `<button class="${c===currentFilter?'active':''}" onclick="switchFilter('${c}',this)">${catLabels[c]}</button>`
@@ -618,9 +618,25 @@ function renderList(filter) {
   customItems.forEach(ci => all.push({ e:ci.e||'💜', n:ci.n, p:ci.p, c:'custom' }));
 
   let list = filter==='all' ? all : all.filter(i => i.c===filter);
-  list = list.map(i => ({...i, q:Math.floor(currentAmount/i.p), r:currentAmount%i.p}))
-    .filter(i => i.q > 0)
-    .sort((a,b) => b.q - a.q);
+  list = list.map(i => {
+    const exact = currentAmount / i.p;
+    const q = Math.floor(exact);
+    const r = currentAmount % i.p;
+    const pct = ((currentAmount / i.p) * 100).toFixed(0);
+    return { ...i, exact, q, r, pct };
+  }).filter(i => i.exact >= 0.05); // show items at 5%+ affordability
+
+  // Sort: travel top, then by "exciting" ratio (close to 1 is most interesting), then by qty
+  list.sort((a, b) => {
+    if (a.c === 'travel' && b.c !== 'travel') return -1;
+    if (b.c === 'travel' && a.c !== 'travel') return 1;
+    // Items close to 1.0 (almost can buy 1) are exciting
+    const aClose = Math.abs(a.exact - 1);
+    const bClose = Math.abs(b.exact - 1);
+    if (aClose < 0.5 && bClose >= 0.5) return -1;
+    if (bClose < 0.5 && aClose >= 0.5) return 1;
+    return b.exact - a.exact;
+  });
 
   const container = document.getElementById('resultList');
   if(!list.length) {
@@ -628,10 +644,14 @@ function renderList(filter) {
     return;
   }
 
-  container.innerHTML = list.map(i => {
-    const unit = i.c==='travel'?'趟':i.c==='food'?'顿':i.c==='mood'?'个':'个';
-    const verb = i.c==='travel'?'可以去 ':'可以买 ';
-    return `
+  // Separate: can buy and almost-there
+  const canBuy = list.filter(i => i.q >= 1);
+  const almost = list.filter(i => i.q < 1 && i.exact >= 0.05);
+
+  container.innerHTML = [
+    ...canBuy.map(i => {
+      const unit = i.c==='travel'?'趟':i.c==='food'?'顿':'个';
+      return `
     <div class="result-item">
       <span class="emoji">${i.e}</span>
       <div class="info">
@@ -642,8 +662,26 @@ function renderList(filter) {
         <div class="num">${i.q.toLocaleString()}</div>
         <div class="unit">${unit}${i.r>0?` · 余 ¥${i.r.toLocaleString()}`:''}</div>
       </div>
-    </div>
-  `;}).join('');
+    </div>`;
+    }),
+    almost.length > 0 ? `<div style="padding:20px 0 8px;font-size:13px;color:var(--text-tertiary);border-bottom:1px solid var(--border);margin-bottom:2px;">👇 还差一点就能拥有</div>` : '',
+    ...almost.map(i => {
+      const unit = i.c==='travel'?'趟':'个';
+      const remain = i.p - currentAmount;
+      return `
+    <div class="result-item" style="opacity:0.7;">
+      <span class="emoji">${i.e}</span>
+      <div class="info">
+        <div class="name">${i.n}</div>
+        <div class="meta">¥${i.p.toLocaleString()} · 还差 ¥${remain.toLocaleString()}</div>
+      </div>
+      <div class="qty">
+        <div class="num" style="font-size:1em;color:var(--text-secondary);">${i.exact.toFixed(1)}</div>
+        <div class="unit">${unit} · ${i.pct}%</div>
+      </div>
+    </div>`;
+    })
+  ].join('');
 }
 
 function addCustom() {
